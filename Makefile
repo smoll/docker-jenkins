@@ -4,7 +4,7 @@ build:
 	@shipwright
 
 data:
-	@docker run --name=jenkins-data smoll/data-wont-push:latest
+	@docker run --name=jenkins-data smoll/jenkins-data:latest
 
 clean-data:
 	@docker rm -v jenkins-data

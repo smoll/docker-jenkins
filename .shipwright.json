@@ -5,6 +5,6 @@
   "namespace": "smoll",
   "names": {
     "/": "smoll/jenkins",
-    "/data": "smoll/data-wont-push"
+    "/data": "smoll/jenkins-data"
   }
 }
