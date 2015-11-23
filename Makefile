@@ -16,7 +16,8 @@ slave:
 	@cd slave; vagrant up
 
 push:
-	@shipwright push
+	# Don't push while we experiment with security settings
+	#@shipwright push
 
 purge:
 	@shipwright purge
