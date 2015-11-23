@@ -2,12 +2,29 @@
 Dockerized Jenkins with CloudBees Docker Workflow
 
 ## What is this?
-The [jenkins:latest](https://github.com/jenkinsci/docker) Docker image from Docker Hub, plus a couple of plugins (Workflow et al.) to make it easy to:
+The [`jenkins`](https://github.com/jenkinsci/docker) Docker image from Docker Hub, plus a couple of plugins (Workflow et al.) to make it easy to:
 
 * orchestrate builds using Docker with an easy-to-read DSL
 * run builds on lightweight Jenkins slaves which only have Docker installed (not rbenv, pyvenv, etc.)
 * run the exact same build locally on my laptop as we would on a shared CI server
 * commit Jenkins job configs to source control, but ensuring that secrets and other special configurations aren't hidden in the job configs
+
+## Usage
+Create the data-only container
+```
+make data
+```
+
+Create the jenkins master
+```
+make master
+```
+
+Visit Jenkins in the browser
+
+* Linux host: [http://localhost:8080](http://localhost:8080)
+
+* Mac host: do `docker-machine ip default` or `boot2docker ip`, for me it's http://192.168.99.100:8080
 
 ## TODOs
 0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
