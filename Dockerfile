@@ -3,7 +3,7 @@
 # Used as the base image for smoll/jenkins-dood
 ############################
 
-FROM jenkins:1.625.2
+FROM jenkins:latest
 MAINTAINER Shujon Mollah <mollah@gmail.com>
 
 #
