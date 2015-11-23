@@ -13,6 +13,7 @@ The [jenkins:latest](https://github.com/jenkinsci/docker) Docker image from Dock
 0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
   * `docker exec -it CONTAINER_ID bash`
   * `grep -r "Short-Name: " /var/jenkins_home/plugins`
+0. Add NGINX to make it easier for slaves to connect to master
 0. Automate SSH key-pairing with Jenkins slaves
 0. Control data-only container via Docker Compose (maybe?)
 
