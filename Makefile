@@ -47,8 +47,9 @@ clean-nginx:
 logs:
 	@docker logs -f jenkins-nginx
 
+# Easier than typing
 open:
-	@open "https://jenkins.example.com"
+	@open "https://`docker-machine ip default`"
 
 destroy:
 	@cd slave; vagrant destroy -f

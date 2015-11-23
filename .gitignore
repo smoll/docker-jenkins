@@ -1,2 +1,5 @@
 .vagrant
 /tmp
+
+# ignore auto-generated certs; TODO: remove this, after we bake these into our own jenkins-nginx Docker image
+/nginx/conf/*.pem
