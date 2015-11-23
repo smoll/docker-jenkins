@@ -25,12 +25,24 @@ Create the nginx reverse proxy
 make nginx
 ```
 
-*(TODO: get rid of this step!)* Edit `/etc/hosts` to add entry for the jenkins server name from nginx conf:
+### *Optionally*
+
+If you want to test nginx networking, edit your hosts file:
 ```
+# /etc/hosts
+
 192.168.99.100 jenkins.example.com
 ```
 
-Visit Jenkins in the browser: https://jenkins.example.com
+You should then be able to visit Jenkins in the browser:
+
+* If you edited your hosts file: https://jenkins.example.com
+
+* If you did not: https://whateveryourdockerhostipis
+
+    * If on a Linux host, it's just `localhost`
+    * If using Docker Machine on a Mac, `docker-machine ip default`
+    * If still using boot2docker, `boot2docker ip`
 
 ## TODOs
 0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
@@ -47,7 +59,7 @@ For example, with non-DooD Jenkins, this Workflow script runs successfully:
 ```groovy
 node('docker') {
     docker.image('tutum/hello-world').withRun('-p 8181:80') {c ->
-    	// These commands are being run on the node, not the container
+        // These commands are being run on the node, not the container
         sh "sleep 3"
         sh "curl http://localhost:8181/"
     }
