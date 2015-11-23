@@ -1,10 +1,17 @@
 # Makefile for development of these Docker images
 
 build:
+	@docker build -t myjenkinsdata data/.
 	@shipwright
 
+run-data:
+	@docker run --name=jenkins-data myjenkinsdata
+
+clean-data:
+	@docker rm -v jenkins-data
+
 master:	build
-	@docker run -d  -p 50000:50000 -p 8080:8080 smoll/jenkins:latest > .makelog
+	@docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --volumes-from=jenkins-data -d smoll/jenkins:latest
 
 slave:
 	@cd slave; vagrant up
@@ -16,11 +23,11 @@ purge:
 	@shipwright purge
 
 clean:
-	@< .makelog xargs -I % sh -c 'docker kill %; docker rm -v %'
-	@rm -f .makelog
+	@docker kill jenkins-master
+	@docker rm jenkins-master
 
 destroy:
 	@cd slave; vagrant destroy -f
 
 .DEFAULT_GOAL := build
-.PHONY: build master slave push purge clean destroy
+.PHONY: build run-data clean-data master slave push purge clean destroy

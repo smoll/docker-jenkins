@@ -13,8 +13,8 @@ The [jenkins:latest](https://github.com/jenkinsci/docker) Docker image from Dock
 0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
   * `docker exec -it CONTAINER_ID bash`
   * `grep -r "Short-Name: " /var/jenkins_home/plugins`
-0. Add data-only container to control data persistence
 0. Automate SSH key-pairing with Jenkins slaves
+0. Control data-only container via Docker Compose (maybe?)
 
 ## Old Approach
 Based on my findings from [smoll/docker-jenkins-dood](https://github.com/smoll/docker-jenkins-dood), I realized that even if locally we are able to orchestrate containers as they were children (when they are actually siblings), we still run into a networking problem, namely, ambiguity around `localhost`.
