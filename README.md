@@ -20,17 +20,22 @@ Create the jenkins master
 make master
 ```
 
-Visit Jenkins in the browser
+Create the nginx reverse proxy
+```
+make nginx
+```
 
-* Linux host: [http://localhost:8080](http://localhost:8080)
+*(TODO: get rid of this step!)* Edit `/etc/hosts` to add entry for the jenkins server name from nginx conf:
+```
+192.168.99.100 jenkins.example.com
+```
 
-* Mac host: do `docker-machine ip default` or `boot2docker ip`, for me it's http://192.168.99.100:8080
+Visit Jenkins in the browser: https://jenkins.example.com
 
 ## TODOs
 0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
   * `docker exec -it CONTAINER_ID bash`
   * `grep -r "Short-Name: " /var/jenkins_home/plugins`
-0. Add NGINX to make it easier for slaves to connect to master
 0. Automate SSH key-pairing with Jenkins slaves
 0. Control data-only container via Docker Compose (maybe?)
 
