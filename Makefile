@@ -54,6 +54,7 @@ open:
 destroy:
 	@cd slave; vagrant destroy -f
 
+# Doesn't let us restore due to owner issue; fix this
 backup:
 	@mkdir -p ./tmp
 	@docker cp jenkins-master:/var/jenkins_home ./tmp/jenkins_home
