@@ -3,7 +3,7 @@
 build:
 	@shipwright
 
-run-data:
+data:
 	@docker run --name=jenkins-data smoll/data-wont-push:latest
 
 clean-data:
@@ -29,4 +29,4 @@ destroy:
 	@cd slave; vagrant destroy -f
 
 .DEFAULT_GOAL := build
-.PHONY: build run-data clean-data master slave push purge clean destroy
+.PHONY: build data clean-data master slave push purge clean destroy
