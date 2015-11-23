@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "assert_hostname": false,
+
+  "namespace": "smoll",
+  "names": {
+    "/": "smoll/jenkins"
+  }
+}
