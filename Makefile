@@ -1,11 +1,10 @@
 # Makefile for development of these Docker images
 
 build:
-	@docker build -t myjenkinsdata data/.
 	@shipwright
 
 run-data:
-	@docker run --name=jenkins-data myjenkinsdata
+	@docker run --name=jenkins-data smoll/data-wont-push:latest
 
 clean-data:
 	@docker rm -v jenkins-data
