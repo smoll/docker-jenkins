@@ -18,6 +18,7 @@ build_and_tag() {
 
 #
 # Build and tag each image, sequentially
+# Params are: @namespace @image_name @dir_to_build
 #
 build_and_tag smoll jenkins master
 build_and_tag smoll jenkins-data data

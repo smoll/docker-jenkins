@@ -30,8 +30,8 @@ nginx:
 slave:
 	@cd slave; vagrant up
 
-push:
-	# Don't push while we experiment with security settings
+push:	build
+	@docker push smoll/jenkins
 
 purge:
 	@docker images -qf dangling=true | xargs docker rmi
