@@ -29,5 +29,9 @@ clean:
 destroy:
 	@cd slave; vagrant destroy -f
 
+backup:
+	@mkdir -p ./tmp
+	@docker cp jenkins-master:/var/jenkins_home ./tmp/jenkins_home
+
 .DEFAULT_GOAL := build
-.PHONY: build data clean-data master slave push purge clean destroy
+.PHONY: build data clean-data master slave push purge clean destroy backup
