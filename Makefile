@@ -18,14 +18,14 @@ master:	build
 		-p 50000:50000 \
 		smoll/jenkins:latest
 
+# To manually rebuild this image without using cache (takes several minutes on my laptop), do:
+# docker build -no-cache -t smoll/jenkins-nginx:latest nginx
 nginx:
 	@docker run -d \
 		--name=jenkins-nginx \
 		--link jenkins-master:jenkins-master \
 		-p 80:80 -p 443:443 \
-		-e 'DH_SIZE=512' \
-		-v /Users/smollah/workspace/jenkins/nginx/conf/:/etc/nginx/external/ \
-		marvambass/nginx-ssl-secure
+		smoll/jenkins-nginx:latest
 
 slave:
 	@cd slave; vagrant up
