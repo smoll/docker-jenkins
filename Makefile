@@ -23,10 +23,9 @@ clean-data:
 	@docker rm -v jenkins-data
 
 master:
-	@docker run \
+	@docker run -d \
 		--name=jenkins-master \
 		--volumes-from=jenkins-data \
-		-d \
 		-p 50000:50000 \
 		smoll/jenkins:latest
 
