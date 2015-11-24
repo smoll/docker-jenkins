@@ -13,24 +13,16 @@ The [`jenkins`](https://github.com/jenkinsci/docker) Docker image from Docker Hu
 ### Bootstrap
 * Start all: `make`
 * Clean all: `make clean`
+* See [`Makefile`](./Makefile) for more.
 
-### Manually
-Create the data-only container
-```
-make data
-```
+Then, visit jenkins in the browser: https://dockerhostip (port 80 will also redirect to https://)
 
-Create the jenkins master
-```
-make master
-```
+### Additional, manual steps
+* Configure Jenkins to use LDAP for authorization (similar to [set_admin.groovy](master/set_admin.groovy), or [this script](https://github.com/blacklabelops/jenkins/blob/master/imagescripts/docker-entrypoint.sh).)
+* Adding GitHub deploy key, as in [here](http://stackoverflow.com/a/33290122) or [here](https://cburgmer.wordpress.com/2013/01/02/tracking-configuration-changes-in-jenkins/).
+* Set up Jenkins Swarm slave(s), like [this](https://github.com/carlossg/jenkins-swarm-slave-docker).
 
-Create the nginx reverse proxy
-```
-make nginx
-```
-
-Visit jenkins in the browser: https://dockerhostip (port 80 will also redirect to https://)
+In the future, these could be automated, by setting an optional flag like `LDAP_SERVER=ldap.example.com` or `DEPLOY_KEY_PATH=/root/.ssh/id_rsa` (provided by volume mounting)
 
 ### *Optionally*
 

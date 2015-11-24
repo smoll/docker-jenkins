@@ -24,6 +24,7 @@ clean-data:
 
 master:
 	@docker run -d \
+		--env-file=master/example.env \
 		--name=jenkins-master \
 		--volumes-from=jenkins-data \
 		-p 50000:50000 \
@@ -58,8 +59,11 @@ destroy:
 
 # convenient commands
 
-logs:
+nlogs:
 	@docker logs -f jenkins-nginx
+
+jlogs:
+	@docker logs -f jenkins-master
 
 open:
 	@open "https://`docker-machine ip default`"
