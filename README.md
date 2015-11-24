@@ -4,12 +4,17 @@ Dockerized Jenkins with CloudBees Docker Workflow
 ## What is this?
 The [`jenkins`](https://github.com/jenkinsci/docker) Docker image from Docker Hub, plus a couple of plugins (Workflow et al.) to make it easy to:
 
-* orchestrate builds using Docker with an easy-to-read DSL
+* orchestrate the entire pipeline **(unit -> build Docker image -> acceptance -> deploy to Staging -> e2e)** using Docker with an easy-to-read DSL
 * run builds on lightweight Jenkins slaves which only have Docker installed (not rbenv, pyvenv, etc.)
 * run the exact same build locally on my laptop as we would on a shared CI server
 * commit Jenkins job configs to source control, but ensuring that secrets and other special configurations aren't hidden in the job configs
 
 ## Usage
+### Bootstrap
+* Start all: `make`
+* Clean all: `make clean`
+
+### Manually
 Create the data-only container
 ```
 make data
@@ -25,6 +30,8 @@ Create the nginx reverse proxy
 make nginx
 ```
 
+Visit jenkins in the browser: https://dockerhostip (port 80 will also redirect to https://)
+
 ### *Optionally*
 
 If you want to test nginx networking, edit your hosts file:
@@ -34,21 +41,14 @@ If you want to test nginx networking, edit your hosts file:
 192.168.99.100 jenkins.example.com
 ```
 
-You should then be able to visit Jenkins in the browser:
-
-* If you edited your hosts file: https://jenkins.example.com
-
-* If you did not: https://whateveryourdockerhostipis
-
-    * If on a Linux host, it's just `localhost`
-    * If using Docker Machine on a Mac, `docker-machine ip default`
-    * If still using boot2docker, `boot2docker ip`
+You should then be able to visit Jenkins at: https://jenkins.example.com
 
 ## TODOs
-0. Automate build config (Add Jenkins Job DSL or SCM Sync Config Plugin, first). To figure out what to add to `plugins.txt`:
+0. Automate build config from seed job(s) (Jenkins Job DSL Plugin) or at least put keep it in source control (SCM Sync Config Plugin). To figure out what to add to `plugins.txt`:
   * `docker exec -it CONTAINER_ID bash`
   * `grep -r "Short-Name: " /var/jenkins_home/plugins`
-0. Automate SSH key-pairing with Jenkins slaves
+0. Automate SSH key-pairing with Jenkins slaves - see [this](http://stackoverflow.com/a/33290122).
+0. Create `make backup` and `make restore` rules - see [this](http://aespinosa.github.io/blog/2014-03-05-import-jenkins-configuration-to-docker.html).
 0. Control data-only container via Docker Compose (maybe?)
 
 ## Old Approach

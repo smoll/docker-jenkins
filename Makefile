@@ -1,11 +1,14 @@
 # Makefile for development of these Docker images
 
+all:	build data master nginx
+clean:	clean-nginx clean-master clean-data
+
 # docker tagging, pushing, and deleting images
 
 build:
 	@sh build-and-tag.sh
 
-push:	build
+push:
 	@docker push smoll/jenkins
 
 purge:
@@ -13,13 +16,13 @@ purge:
 
 # docker running and removing containers
 
-data:	build
+data:
 	@docker run --name=jenkins-data smoll/jenkins-data:latest
 
 clean-data:
 	@docker rm -v jenkins-data
 
-master:	build
+master:
 	@docker run \
 		--name=jenkins-master \
 		--volumes-from=jenkins-data \
@@ -27,7 +30,7 @@ master:	build
 		-p 50000:50000 \
 		smoll/jenkins:latest
 
-clean:
+clean-master:
 	@docker kill jenkins-master || true
 	@docker rm jenkins-master || true
 
@@ -68,5 +71,4 @@ backup:
 	@mkdir -p ./tmp
 	@docker cp jenkins-master:/var/jenkins_home ./tmp/jenkins_home
 
-.DEFAULT_GOAL := build
 .PHONY: build push purge data clean-data master clean nginx clean-nginx slave destroy logs open backup
