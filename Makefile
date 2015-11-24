@@ -61,7 +61,6 @@ destroy:
 logs:
 	@docker logs -f jenkins-nginx
 
-# Easier than typing
 open:
 	@open "https://`docker-machine ip default`"
 
@@ -72,4 +71,7 @@ backup:
 	@mkdir -p ./tmp
 	@docker cp jenkins-master:/var/jenkins_home ./tmp/jenkins_home
 
-.PHONY: build push purge data clean-data master clean nginx clean-nginx slave destroy logs open backup
+restore:
+	# TODO
+
+.PHONY: build push purge data clean-data master clean-master nginx clean-nginx slave destroy logs open backup restore
