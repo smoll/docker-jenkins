@@ -30,6 +30,8 @@ master:
 		-p 50000:50000 \
 		smoll/jenkins:latest
 
+# `|| true` to ensure container is removed, even if there is no container to kill
+# second `|| true` is to ensure `make clean` cleans all containers instead of prematurely aborting
 clean-master:
 	@docker kill jenkins-master || true
 	@docker rm jenkins-master || true
