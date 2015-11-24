@@ -3,6 +3,7 @@ git-client:latest
 git:latest
 greenballs:latest
 docker-workflow:latest
+swarm:latest
 workflow-aggregator:latest
 workflow-api:latest
 workflow-job:latest

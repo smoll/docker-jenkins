@@ -1,7 +1,7 @@
 # Makefile for development of these Docker images
 
-all:	build data master nginx
-clean:	clean-nginx clean-master clean-data
+all:	build data master slave nginx
+clean:	clean-nginx clean-slave clean-master clean-data
 
 # docker tagging, pushing, and deleting images
 
@@ -27,8 +27,9 @@ master:
 		--env-file=master/example.env \
 		--name=jenkins-master \
 		--volumes-from=jenkins-data \
-		-p 50000:50000 \
+		-p 50000:50000 -p 8080:8080 \
 		smoll/jenkins:latest
+# Temporarily exposing port 8080 because Jenkins Swarm throws error when SSL cert cannot be verified
 
 # `|| true` to ensure container is removed, even if there is no container to kill
 # second `|| true` is to ensure `make clean` cleans all containers instead of prematurely aborting
@@ -52,9 +53,12 @@ clean-nginx:
 # vagrant-based commands
 
 slave:
+	# @docker run -d --link jenkins-master:jenkins csanchez/jenkins-swarm-slave -username admin -password admin -executors 1
 	@cd slave; vagrant up
 
-destroy:
+clean-slave:
+	# @docker kill jenkins-slave || true
+	# @docker rm jenkins-slave || true
 	@cd slave; vagrant destroy -f
 
 # convenient commands
@@ -64,6 +68,9 @@ nlogs:
 
 jlogs:
 	@docker logs -f jenkins-master
+
+slogs:
+	# @docker logs -f jenkins-slave
 
 open:
 	@open "https://`docker-machine ip default`"
@@ -78,4 +85,4 @@ backup:
 restore:
 	# TODO
 
-.PHONY: build push purge data clean-data master clean-master nginx clean-nginx slave destroy logs open backup restore
+.PHONY: build push purge data clean-data master clean-master nginx clean-nginx slave clean-slave nlogs jlogs slogs open backup restore

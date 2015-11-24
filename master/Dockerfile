@@ -15,4 +15,9 @@ RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 #
 # Script to create default admin user
 #
-COPY set_admin.groovy /usr/share/jenkins/ref/init.groovy.d/
+COPY set-admin.groovy /usr/share/jenkins/ref/init.groovy.d/
+
+#
+# Remove executors in master
+#
+COPY master-executors.groovy /usr/share/jenkins/ref/init.groovy.d/
